@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 function App() {
    const [countries, setCountries] = useState([]);
+   const [searchTerm, setSearchTerm] = useState("");
 
    useEffect(() => {
       async function fetchData() {
@@ -10,8 +11,7 @@ function App() {
          const response = await fetch(url);
          const result = await response.json();
 
-         // result[0] contains pagie info
-         // result[1] contains the actual country data array
+         
          console.log("Page", result[0]);
          console.log("Country data:", result[1]);
 
@@ -21,10 +21,19 @@ function App() {
       fetchData();
    }, []);
 
+   // Filter 
+   const filteredCountries = countries.filter((country) => {
+      // If empty, show all 
+      if (searchTerm === "") {
+         return true;
+      }
+      // Ocheck if country name includes the search term
+      return country.name.toLowerCase().includes(searchTerm.toLowerCase());
+   });
 
       
     
-
+  
    return (
       <>
          
@@ -46,7 +55,12 @@ function App() {
       <path d="m21 21-4.3-4.3"></path>
     </g>
   </svg>
-  <input type="search" required placeholder="Search" />
+  <input
+    type="search"
+    placeholder="Search countries..."
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
 </label>
 
 
@@ -62,12 +76,13 @@ function App() {
 
 
          <ol>
-            {countries.map((c, index) => (
+            {filteredCountries.map((c, index) => (
                <li key={c.id || index} >
                 <div className="card-body" >
                   <h2 className="card-title">{c.name}</h2>
                   <p><strong>Region:</strong> {c.region.value}, <br/>
                   <strong>Capital:</strong> {c.capitalCity}</p>
+
                 </div> </li>  )
           )   }
         </ol>

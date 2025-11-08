@@ -1,25 +1,24 @@
 @import "tailwindcss";
-@plugin "daisyui" ;
 
 
-/* Optional: add via index.html <link> or keep this @import at top of your CSS */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Nunito:wght@300;600&display=swap');
+
+
 
 :root{
-  --bg: #12030ac7;            /* cotton-candy */
-  --bg-2: #1b1919;          /* lavender milk */
+  --bg: #12030ac7;            
+  --bg-2: #1b1919;        
   --surface: #000000;
   --surface-soft:#3f99cd;
   --ink: #3c8ee6;
   --ink-soft:#5dd17e;
-  --primary:#ff8fb7;        /* soft pink */
+  --primary:#ff8fb7;        
   --primary-ink:#df07d4;
-  --ring:#1fa151;           /* lilac focus */
+  --ring:#1fa151;           
   --border:#000000;
   --shadow: 0 10px 30px rgba(213, 222, 33, 0.307);
 }
 
-/* Page background: gentle lofi gradient + subtle grid */
+
 body, #root, .page{
   min-height:100vh;
   background:
@@ -30,7 +29,7 @@ body, #root, .page{
   color: var(--ink);
 }
 
-/* Tiny dotted grid overlay for lofi feel */
+
 .page::before{
   content:"";
   position:fixed;
@@ -42,7 +41,7 @@ body, #root, .page{
   opacity:.25;
 }
 
-/* Sticky toolbar with soft blur “glass” */
+
 .toolbar{
   position: sticky;
   top: 0;
@@ -82,7 +81,7 @@ body, #root, .page{
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--ring) 30%, transparent);
 }
 
-/* Page content */
+
 .content{
   max-width: 1200px;
   margin: 0 auto;
@@ -100,7 +99,7 @@ h1{
   margin: 10px 0 14px;
 }
 
-/* Cards grid uses your existing <ol> */
+
 .card-container ol{
   list-style: none;
   margin: 0;
@@ -112,7 +111,7 @@ h1{
   
 }
 
-/* Card */
+
 .card-body{
   background: var(--surface);
   border: 1px solid var(--border);
@@ -126,7 +125,7 @@ h1{
   
 }
 
-/* cute “sticker” highlight */
+
 .card-body::after{
   content:"";
   position:absolute;
@@ -151,7 +150,7 @@ h1{
   margin: 2px 0 8px;
 }
 
-/* Body text */
+
 .card-body p{
   margin: 0;
   line-height: 1.5;
@@ -162,14 +161,14 @@ h1{
   font-weight: 600;
 }
 
-/* Focus-visible for accessibility */
+
 *:focus-visible{
   outline: 0;
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--ring) 40%, transparent);
   border-color: var(--ring);
 }
 
-/* Reduced motion */
+
 @media (prefers-reduced-motion: reduce){
   .card-body, .input, .select{ transition: none; }
 }
