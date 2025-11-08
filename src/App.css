@@ -1,42 +1,182 @@
-#root {
-  max-width: 1280px;
+@import "tailwindcss";
+@plugin "daisyui" ;
+
+
+/* Optional: add via index.html <link> or keep this @import at top of your CSS */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Nunito:wght@300;600&display=swap');
+
+:root{
+  --bg: #12030ac7;            /* cotton-candy */
+  --bg-2: #1b1919;          /* lavender milk */
+  --surface: #000000;
+  --surface-soft:#3f99cd;
+  --ink: #3c8ee6;
+  --ink-soft:#5dd17e;
+  --primary:#ff8fb7;        /* soft pink */
+  --primary-ink:#df07d4;
+  --ring:#1fa151;           /* lilac focus */
+  --border:#000000;
+  --shadow: 0 10px 30px rgba(213, 222, 33, 0.307);
+}
+
+/* Page background: gentle lofi gradient + subtle grid */
+body, #root, .page{
+  min-height:100vh;
+  background:
+    radial-gradient(1200px 600px at 20% -10%, var(--bg) 0%, transparent 70%),
+    radial-gradient(900px 500px at 110% 20%, var(--bg-2) 0%, transparent 70%),
+    linear-gradient(180deg, #000000b5 0%, #540d46 30%, #5c1e60 100%);
+  font-family: 'Poppins', 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--ink);
+}
+
+/* Tiny dotted grid overlay for lofi feel */
+.page::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(#410d89 1px, transparent 1px);
+  background-size: 14px 14px;
+  opacity:.25;
+}
+
+/* Sticky toolbar with soft blur “glass” */
+.toolbar{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  background: color-mix(in oklab, var(--surface-soft) 70%, rgb(180, 12, 202));
+  border-bottom: 1px solid var(--border);
+}
+.toolbar-inner{
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 14px clamp(12px, 4vw, 24px);
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 10px;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media (max-width: 720px){
+  .toolbar-inner{
+    grid-template-columns: 1fr;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.input, .select{
+  height: 44px;
+  padding: 0 16px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  border-radius: 999px;
+  outline: none;
+  color: var(--ink);
+  transition: box-shadow .2s ease, border-color .2s ease, transform .05s ease;
+  box-shadow: 0 2px 0 rgba(0,0,0,.02) inset;
+}
+.input::placeholder{ color: #a59ab8; }
+.input:focus, .select:focus{
+  border-color: var(--ring);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ring) 30%, transparent);
 }
 
-.card {
-  padding: 2em;
+/* Page content */
+.content{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px clamp(12px, 4vw, 24px) 48px;
 }
 
-.read-the-docs {
-  color: #888;
+h1{
+  font-weight:700;
+  letter-spacing:.2px;
+  font-size: clamp(22px, 2.2vw, 32px);
+  background: linear-gradient(90deg, var(--primary) 0%, #b9a6ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 10px 0 14px;
 }
+
+/* Cards grid uses your existing <ol> */
+.card-container ol{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+
+  
+}
+
+/* Card */
+.card-body{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 16px 16px 18px;
+  box-shadow: var(--shadow);
+  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+  position: relative;
+  overflow: clip;
+  height:160px;
+  
+}
+
+/* cute “sticker” highlight */
+.card-body::after{
+  content:"";
+  position:absolute;
+  top:-24px; right:-24px;
+  width:90px; height:90px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, #ffe1ee, transparent 70%);
+  opacity:.55;
+  transform: rotate(10deg);
+}
+
+.card-body:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(184, 154, 255, .22);
+  border-color: #eadff9;
+}
+
+.card-title{
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-ink);
+  margin: 2px 0 8px;
+}
+
+/* Body text */
+.card-body p{
+  margin: 0;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.card-body p strong{
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Focus-visible for accessibility */
+*:focus-visible{
+  outline: 0;
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--ring) 40%, transparent);
+  border-color: var(--ring);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .card-body, .input, .select{ transition: none; }
+}
+
+
+
+
+
+
+
