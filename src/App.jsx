@@ -21,13 +21,13 @@ function App() {
       fetchData();
    }, []);
 
-   // Filter 
+  
    const filteredCountries = countries.filter((country) => {
-      // If empty, show all 
+
       if (searchTerm === "") {
          return true;
       }
-      // Ocheck if country name includes the search term
+    
       return country.name.toLowerCase().includes(searchTerm.toLowerCase());
    });
 
